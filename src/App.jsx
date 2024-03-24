@@ -9,26 +9,25 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, SetPassword] = useState("");
   const [confirmPassword, SetConfirmPassword] = useState("");
-
+  // affichage du resultat
+  const [isFormValid, setIsFormValid] = useState(false);
   // affichage d'une erreur ou non
   const [showError, SetShowError] = useState(false);
 
   // fonction déclenchée a la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
-    // si le formulaire est validé on renvoit les résultats
-    if (handleSubmit === true) {
-      return <StepTwo />;
-    }
+
     // si le mot de passe et la confirmation de mot de passe ne sont pas identique retourner une erreur
     if (password !== confirmPassword || password.length < 10) {
       SetShowError(true);
-
+      setIsFormValid(false);
       alert("Mot de passe inconnu");
 
       return;
     } else {
       SetShowError(false);
+      setIsFormValid(true);
       alert("Formulaire validé");
     }
     //
@@ -82,6 +81,8 @@ function App() {
           }}
         />
         <input type="submit" value="Register" />
+        {/* si le formulaire est validé on renvoit les résultats */}
+        {isFormValid === true && <StepTwo name={username} email={email} />}
       </form>
 
       <Footer />
